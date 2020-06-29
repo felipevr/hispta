@@ -39,11 +39,11 @@ class Personagem extends Animacao {
   }
 
   estaColidindo(inimigo) {
-
-    noFill();
     const precisao = .63;
+
+    /*noFill();
     rect(this.x, this.y, this.largura * precisao, this.altura);
-    rect(inimigo.x, inimigo.y, inimigo.largura * precisao, inimigo.altura);
+    rect(inimigo.x, inimigo.y, inimigo.largura * precisao, inimigo.altura);*/
     //collideRectRect(x, y, width, height, x2, y2, width2, height2 )
     const hit = collideRectRect(this.x, this.y, this.largura * precisao, this.altura,
             inimigo.x, inimigo.y, inimigo.largura * precisao, inimigo.altura);
