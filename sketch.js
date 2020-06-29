@@ -22,7 +22,7 @@ function setup() {
   cenario = new Cenario(imgCenario, 5);
   personagem = new Personagem(imgPersonagem, 220, 270, 4, 4);
   //(imagem, x, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite)
-  inimigo = new Inimigo(imgInimigo, width - 52, 52, 52, 104, 104, 4, 7);
+  inimigo = new Inimigo(imgInimigo, width - 52, 30, 52, 52, 104, 104, 4, 7);
   frameRate(40);
   somFundo.loop();
 }

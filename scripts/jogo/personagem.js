@@ -1,20 +1,17 @@
 class Personagem extends Animacao {
   constructor(imagem, larguraSprite, alturaSprite, colunas, linhas) {
 
-    super(imagem, 10, 110, 135, larguraSprite, alturaSprite, colunas, linhas);
-
-    this.yBase = this.y;
+    super(imagem, 10, 30, 110, 135, larguraSprite, alturaSprite, colunas, linhas);
 
     this.velocidadeDoPulo = 0;
     this.gravidade = 0;
 
     this.pulos = 0;
-
   }
   
   pula(somPulo) {
     if(this.pulos < 2) {
-      this.velocidadeDoPulo = - 50;
+      this.velocidadeDoPulo = -50;
       this.gravidade = 3;
       this.pulos++;
       somPulo.play();
