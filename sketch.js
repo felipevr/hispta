@@ -5,12 +5,14 @@ let cenario;
 let personagem;
 let inimigo;
 let somFundo;
+let somPulo;
 
 function preload() {
   imgCenario = loadImage('imagens/cenario/floresta.png');
   imgPersonagem = loadImage('imagens/personagem/correndo.png');
   imgInimigo = loadImage('imagens/inimigos/gotinha.png');
   somFundo = loadSound('sons/trilha_jogo.mp3');
+  somPulo = loadSound('sons/somPulo.mp3');
 }
 
 function setup() {
@@ -20,13 +22,28 @@ function setup() {
   //(imagem, x, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite)
   inimigo = new Inimigo(imgInimigo, width - 52, 52, 52, 104, 104, 4, 7);
   frameRate(40);
-  //somFundo.loop();
+  somFundo.loop();
+}
+
+function keyPressed() {
+  if (key === ' ') {
+    personagem.pula();
+    somPulo.play();
+  }
 }
 
 function draw() {
   cenario.exibe();
   cenario.move();
-  personagem.exibe(height-150, 110, 135);
+
+  personagem.exibe();
+  personagem.aplicaGravidade();
+
   inimigo.exibe();
   inimigo.move();
+
+  if(personagem.estaColidindo(inimigo)) {
+    console.log('colidiu');
+    noLoop();
+  }
 }
