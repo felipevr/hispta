@@ -1,9 +1,9 @@
 class Animacao {
 
     constructor(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite) {
-        
+
         this.imagem = imagem;
-        
+
         this.colunasSprite = colunasSprite;
         this.linhasSprite = linhasSprite;
 
@@ -20,7 +20,7 @@ class Animacao {
         this.frameX = 0;
         this.frameY = 0;
     }
-        
+
     exibe() {
         let a = this.frameX * this.larguraSprite;
         let b = this.frameY * this.alturaSprite;
@@ -31,12 +31,12 @@ class Animacao {
 
     anima() {
         this.frameX += 1;
-        if(this.frameX >= this.colunasSprite) {
-          this.frameX = 0;
-          this.frameY += 1;
+        if (this.frameX >= this.colunasSprite) {
+            this.frameX = 0;
+            this.frameY += 1;
         }
-        if(this.frameY >= this.linhasSprite) {
-          this.frameY = 0;
+        if (this.frameY >= this.linhasSprite) {
+            this.frameY = 0;
         }
 
     }
