@@ -19,6 +19,8 @@ class Animacao {
 
         this.frameX = 0;
         this.frameY = 0;
+
+        this.precisao = 0.6;
     }
 
     exibe() {

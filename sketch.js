@@ -34,7 +34,7 @@ function setup() {
     //(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite, velocidade, atraso)
     const inimigo = new Inimigo(imgInimigo, width - 52, 30, 52, 52, 104, 104, 4, 7, 10, 300);
     const troll = new Inimigo(imgTroll, width + 250, 30, 200, 200, 400, 400, 5, 5, 8, 1000);
-    const voador = new Inimigo(imgVoador, width + 500, 230, 100, 75, 200, 150, 3, 5, 15, 500);
+    const voador = new Inimigo(imgVoador, width + 500, 230, 100, 75, 200, 150, 3, 5, 15, 500, 0.5);
 
     inimigos.push(inimigo);
     inimigos.push(troll);

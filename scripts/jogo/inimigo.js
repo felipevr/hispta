@@ -3,12 +3,16 @@ class Inimigo extends Animacao {
         largura, altura, 
         larguraSprite, alturaSprite, 
         colunasSprite, linhasSprite,
-        velocidade, atraso) {
+        velocidade, atraso, precisao) {
         super(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite);
 
         this.velocidade = velocidade;
         this.atraso = atraso;
         this.x = width + this.atraso;
+
+        if(precisao !== undefined) {
+            this.precisao = precisao;
+        }
     }
 
     move() {

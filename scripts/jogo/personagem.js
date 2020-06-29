@@ -10,7 +10,13 @@ class Personagem extends Animacao {
 
         this.pulos = 0;
 
+        this.precisao = 0.6;
+
         this.exibirColisor = false;
+
+        if(this.exibirColisor) {
+            collideDebug(true);
+        }
     }
 
     pula(somPulo) {
@@ -40,22 +46,30 @@ class Personagem extends Animacao {
     }
 
     estaColidindo(inimigo) {
-        const precisaoX = .63;
-        const precisaoY = .7
+
+        //const dadosPersonagem = [this.x + (this.largura * precisaoInversa), this.y + (this.altura * precisaoInversa), this.largura * precisao, this.altura * precisao];
+        const dadosPersonagem = this.calculaPrecisao(this);
+        const dadosInimigo = this.calculaPrecisao(inimigo); //[inimigo.x * precisaoInversa, inimigo.y * precisaoInversa, inimigo.largura * precisao, inimigo.altura * precisao];
 
         //collideRectRect(x, y, width, height, x2, y2, width2, height2 )
-        const hit = collideRectRect(this.x, this.y, this.largura * precisaoX, this.altura * precisaoY,
-            inimigo.x, inimigo.y, inimigo.largura * precisaoX, inimigo.altura * precisaoY);
+        const hit = collideRectRect(...dadosPersonagem, ...dadosInimigo);
 
         if (this.exibirColisor) {
             stroke((hit) ? color("red") : 0);
 
             noFill();
-            rect(this.x, this.y, this.largura * precisaoX, this.altura * precisaoY);
-            rect(inimigo.x, inimigo.y, inimigo.largura * precisaoX, inimigo.altura * precisaoY);
+            rect(...dadosPersonagem);
+            rect(...dadosInimigo);
         }
 
         return hit;
+    }
+
+    calculaPrecisao(objeto) {
+        let precisao = objeto.precisao;
+        const precisaoInversa = (1 - precisao) / 2;
+
+        return [objeto.x + (objeto.largura * precisaoInversa), objeto.y + (objeto.altura * precisaoInversa), objeto.largura * precisao, objeto.altura * precisao];
     }
 
 }
