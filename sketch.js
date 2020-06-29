@@ -1,6 +1,7 @@
 let imgCenario;
 let imgPersonagem;
 let imgInimigo;
+let imgGameover;
 let cenario;
 let personagem;
 let inimigo;
@@ -11,6 +12,7 @@ function preload() {
   imgCenario = loadImage('imagens/cenario/floresta.png');
   imgPersonagem = loadImage('imagens/personagem/correndo.png');
   imgInimigo = loadImage('imagens/inimigos/gotinha.png');
+  imgGameover = loadImage('imagens/assets/game-over.png');
   somFundo = loadSound('sons/trilha_jogo.mp3');
   somPulo = loadSound('sons/somPulo.mp3');
 }
@@ -42,7 +44,7 @@ function draw() {
   inimigo.move();
 
   if(personagem.estaColidindo(inimigo)) {
-    console.log('colidiu');
+    image(imgGameover, width/2 - 206, height/2 - 39)
     noLoop();
   }
 }
