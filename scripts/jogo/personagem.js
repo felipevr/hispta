@@ -1,28 +1,14 @@
-class Personagem {
-  constructor(imagem, largura, altura, colunas, linhas) {
-    this.imagem = imagem;
-    this.largura = largura;
-    this.altura = altura;
-    this.colunas = colunas;
-    this.linhas = linhas;
-    this.posX = 0;
-    this.posY = 0;
+class Personagem extends Animacao {
+  constructor(imagem, larguraSprite, alturaSprite, colunas, linhas) {
+
+    super(imagem, 0, 0, 0, larguraSprite, alturaSprite, colunas, linhas);
+
   }
   
   exibe(y, largura, altura) {
-    let a = this.posX * this.largura;
-    let b = this.posY * this.altura;
-    image(this.imagem, 10, y, largura, altura, a, b, this.largura, this.altura);
+    let a = this.frameX * this.larguraSprite;
+    let b = this.frameY * this.alturaSprite;
+    image(this.imagem, 10, y, largura, altura, a, b, this.larguraSprite, this.alturaSprite);
   }
   
-  anima() {
-    this.posX += 1;
-    if(this.posX >= this.colunas) {
-      this.posX = 0;
-      this.posY += 1;
-    }
-    if(this.posY >= this.linhas) {
-      this.posY = 0;
-    }
-  }
 }
