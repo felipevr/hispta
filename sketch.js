@@ -27,8 +27,7 @@ function setup() {
 
 function keyPressed() {
   if (key === ' ') {
-    personagem.pula();
-    somPulo.play();
+    personagem.pula(somPulo);
   }
 }
 
