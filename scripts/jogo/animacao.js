@@ -10,19 +10,19 @@ class Animacao {
         this.larguraSprite = larguraSprite;
         this.alturaSprite = alturaSprite;
 
-        this.x = x;
-        this.y = height - this.altura;
-
         this.largura = largura;
         this.altura = altura;
+
+        this.x = x;
+        this.y = height - this.altura - 10;
 
         this.frameX = 0;
         this.frameY = 0;
     }
         
-    exibe(largura, altura) {
-        let a = this.frameX * this.largura;
-        let b = this.frameY * this.altura;
+    exibe() {
+        let a = this.frameX * this.larguraSprite;
+        let b = this.frameY * this.alturaSprite;
         image(this.imagem, this.x, this.y, this.largura, this.altura, a, b, this.larguraSprite, this.alturaSprite);
 
         this.anima();
