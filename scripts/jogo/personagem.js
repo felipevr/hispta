@@ -8,6 +8,8 @@ class Personagem extends Animacao {
         this.gravidade = 0.1;
         this.alturaPulo = -5;
 
+        this.invencivel = false;
+
         this.precisao = 0.6;
 
         this.exibirColisor = false;
@@ -17,6 +19,21 @@ class Personagem extends Animacao {
         }
     }
 
+    exibe() {
+        if (!this.pisca) {
+            super.exibe();
+        }
+
+        if (this.invencivel) {
+            if(parseInt(cenas[cenaAtual].pontuacao.pontos*10) % 3 == 0) {
+                this.pisca = !this.pisca;
+            }
+            console.log(parseInt(cenas[cenaAtual].pontuacao.pontos));
+        } else {
+            this.pisca = false;
+        }
+    }
+    
     pula() {
         this.velocidadeDoPulo += this.alturaPulo;
         this.aceleracao = this.gravidade;
@@ -26,6 +43,7 @@ class Personagem extends Animacao {
         this.velocidadeDoPulo -= this.alturaPulo/2;
         if(this.velocidadeDoPulo < 0) {
             this.velocidadeDoPulo = 0;
+
         }
     }
 
@@ -46,7 +64,18 @@ class Personagem extends Animacao {
 
     }
 
+    ficaInvencivel() {
+        this.invencivel = true;
+        setTimeout(() => {
+            this.invencivel = false;
+        }, 1000);
+    }
+
     estaColidindo(inimigo) {
+
+        if(this.invencivel) {
+            return false;
+        }
 
         //const dadosPersonagem = [this.x + (this.largura * precisaoInversa), this.y + (this.altura * precisaoInversa), this.largura * precisao, this.altura * precisao];
         const dadosPersonagem = this.calculaPrecisao(this);

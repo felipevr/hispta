@@ -5,10 +5,30 @@ class Jogo extends Cena {
         this.indice1 = 0;
         this.indice2 = -1;
 
+        this.mapa = [
+            {
+                inimigo: 0,
+                velocidade: 10
+            },
+            {
+                inimigo: 1,
+                velocidade: 30
+            },
+            {
+                inimigo: 1,
+                velocidade: 15
+            },
+            {
+                inimigo: 2,
+                velocidade: 40
+            },
+        ]
+
         this.cenario = new Cenario(imgCenario, 5);
         this.pontuacao = new Pontuacao();
+
         this.personagem = new Personagem(imgPersonagem, 288, 128, 3, 5);
-        this.vida = new Vida(4,4);
+        this.vida = new Vida(4, 3);
         
         this.inimigos = [];
     }
@@ -89,8 +109,14 @@ class Jogo extends Cena {
             this.inimigos[this.indice2].velocidade = parseInt(random(15, 30));
         }
 
-        if (this.personagem.estaColidindo(inimigo)) {
+        if (this.vida.vidas === 0) {
             this.gameOver();
+        }
+
+        if (this.personagem.estaColidindo(inimigo)) {
+            this.vida.perdeVida();
+            this.personagem.ficaInvencivel();
+
         }
     }
 
