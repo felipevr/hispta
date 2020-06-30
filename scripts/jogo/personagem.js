@@ -1,28 +1,75 @@
-class Personagem {
-  constructor(imagem, largura, altura, colunas, linhas) {
-    this.imagem = imagem;
-    this.largura = largura;
-    this.altura = altura;
-    this.colunas = colunas;
-    this.linhas = linhas;
-    this.posX = 0;
-    this.posY = 0;
-  }
-  
-  exibe(y, largura, altura) {
-    let a = this.posX * this.largura;
-    let b = this.posY * this.altura;
-    image(this.imagem, 10, y, largura, altura, a, b, this.largura, this.altura);
-  }
-  
-  anima() {
-    this.posX += 1;
-    if(this.posX >= this.colunas) {
-      this.posX = 0;
-      this.posY += 1;
+class Personagem extends Animacao {
+    constructor(imagem, larguraSprite, alturaSprite, colunas, linhas) {
+
+        super(imagem, 10, 30, 110, 135, larguraSprite, alturaSprite, colunas, linhas);
+
+        this.velocidadeDoPulo = 0;
+        this.aceleracao = 0;
+        this.gravidade = 3;
+        this.alturaPulo = -50;
+
+        this.pulos = 0;
+
+        this.precisao = 0.6;
+
+        this.exibirColisor = false;
+
+        if(this.exibirColisor) {
+            collideDebug(true);
+        }
     }
-    if(this.posY >= this.linhas) {
-      this.posY = 0;
+
+    pula(somPulo) {
+        if (this.pulos < 2) {
+            this.velocidadeDoPulo = this.alturaPulo;
+            this.aceleracao = this.gravidade;
+            this.pulos++;
+            somPulo.play();
+        }
     }
-  }
+
+    aplicaGravidade() {
+        this.y = this.y + this.velocidadeDoPulo;
+        this.velocidadeDoPulo = this.velocidadeDoPulo + this.aceleracao;
+
+        if (this.y > this.yBase) {
+            this.y = this.yBase;
+            this.velocidadeDoPulo = 0;
+            this.aceleracao = 0;
+            this.pulos = 0;
+        }
+
+        if (this.y <= 0) {
+            this.y = 10;
+        }
+
+    }
+
+    estaColidindo(inimigo) {
+
+        //const dadosPersonagem = [this.x + (this.largura * precisaoInversa), this.y + (this.altura * precisaoInversa), this.largura * precisao, this.altura * precisao];
+        const dadosPersonagem = this.calculaPrecisao(this);
+        const dadosInimigo = this.calculaPrecisao(inimigo); //[inimigo.x * precisaoInversa, inimigo.y * precisaoInversa, inimigo.largura * precisao, inimigo.altura * precisao];
+
+        //collideRectRect(x, y, width, height, x2, y2, width2, height2 )
+        const hit = collideRectRect(...dadosPersonagem, ...dadosInimigo);
+
+        if (this.exibirColisor) {
+            stroke((hit) ? color("red") : 0);
+
+            noFill();
+            rect(...dadosPersonagem);
+            rect(...dadosInimigo);
+        }
+
+        return hit;
+    }
+
+    calculaPrecisao(objeto) {
+        let precisao = objeto.precisao;
+        const precisaoInversa = (1 - precisao) / 2;
+
+        return [objeto.x + (objeto.largura * precisaoInversa), objeto.y + (objeto.altura * precisaoInversa), objeto.largura * precisao, objeto.altura * precisao];
+    }
+
 }
