@@ -10,8 +10,9 @@ function preload() {
     imgGameover = loadImage('imagens/assets/game-over.png');
 
     imgSplash = loadImage('imagens/assets/splash.svg');
+    imgTelaInicial = loadImage('imagens/assets/telaInicial.png');
 
-    font = loadFont('imagens/assets/fonteTelaInicial.otf');
+    fontTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
 
     somFundo = loadSound('sons/trilha_jogo.mp3');
     somPulo = loadSound('sons/somPulo.mp3');

@@ -7,7 +7,10 @@ let imgPersonagem;
 let imgInimigo, imgTroll, imgVoador;
 let imgGameover;
 let imgSplash;
+let imgTelaInicial;
 
-let font;
+let fontTelaInicial;
 
 let somFundo, somPulo;
+
+let botao;

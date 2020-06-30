@@ -3,13 +3,15 @@ function setup() {
     
     frameRate(40);
 
+    botao = new Botao('Iniciar', width/2, height/5*3);
+
     cenas = {
         jogo: new Jogo(),
         telaInicial: new TelaInicial()
     };
-    cenaAtual = 'jogo';
+    //cenaAtual = 'jogo';
 
-    cenas[cenaAtual].setup();
+    cenas.jogo.setup();
 }
 
 function keyPressed() {
