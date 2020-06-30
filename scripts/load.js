@@ -8,6 +8,7 @@ function preload() {
     imgVoador = loadImage('imagens/inimigos/gotinha-voadora.png');
 
     imgGameover = loadImage('imagens/assets/game-over.png');
+    imgVida = loadImage('imagens/assets/coracao.png');
 
     imgSplash = loadImage('imagens/assets/splash.svg');
     imgTelaInicial = loadImage('imagens/assets/telaInicial.png');

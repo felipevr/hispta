@@ -9,7 +9,6 @@ function setup() {
         jogo: new Jogo(),
         telaInicial: new TelaInicial()
     };
-    //cenaAtual = 'jogo';
 
     cenas.jogo.setup();
 }

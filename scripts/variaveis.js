@@ -8,6 +8,7 @@ let imgInimigo, imgTroll, imgVoador;
 let imgGameover;
 let imgSplash;
 let imgTelaInicial;
+let imgVida;
 
 let fontTelaInicial;
 

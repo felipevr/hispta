@@ -7,6 +7,7 @@ class Jogo extends Cena {
         this.cenario = new Cenario(imgCenario, 5);
         this.pontuacao = new Pontuacao();
         this.personagem = new Personagem(imgPersonagem, 220, 270, 4, 4);
+        this.vida = new Vida(4,4);
         
         this.inimigos = [];
     }
@@ -36,6 +37,7 @@ class Jogo extends Cena {
         this.cenario.exibe();
         this.cenario.move();
 
+        this.vida.draw();
         //this.testeColisao();
 
         this.pontuacao.exibe();
