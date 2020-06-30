@@ -2,8 +2,7 @@ class Jogo extends Cena {
     constructor() {
         super();
 
-        this.inimigoAtual = 0;
-
+        this.indice = 0;
         this.mapa = [
             {
                 inimigo: 0,
@@ -33,10 +32,10 @@ class Jogo extends Cena {
 
     setup() {
 
-        //(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite, velocidade, atraso)
-        const inimigo2 = new Inimigo(imgInimigo, width - 52, 30, 52, 52, 104, 104, 4, 7, 10, 300);
-        const troll = new Inimigo(imgTroll, width + 250, 30, 200, 200, 400, 400, 5, 5, 8, 1000);
-        const voador = new Inimigo(imgVoador, width + 500, 230, 100, 75, 200, 150, 3, 5, 15, 500, 0.5);
+        //(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite, velocidade, precisao)
+        const inimigo2 = new Inimigo(imgInimigo, width - 52, 30, 52, 52, 104, 104, 4, 7, 10);
+        const troll = new Inimigo(imgTroll, width + 250, 30, 200, 200, 400, 400, 5, 5, 8);
+        const voador = new Inimigo(imgVoador, width + 500, 230, 100, 75, 200, 150, 3, 5, 15, 0.5);
 
         this.inimigos.push(inimigo2);
         this.inimigos.push(troll);
@@ -65,18 +64,21 @@ class Jogo extends Cena {
         this.personagem.exibe();
         this.personagem.aplicaGravidade();
 
-        const inimigo = this.inimigos[this.inimigoAtual];
+        const linhaAtual = this.mapa[this.indice];
+        const inimigo = this.inimigos[linhaAtual.inimigo];
         const inimigoVisivel = inimigo.x < -inimigo.largura;
+
+        inimigo.velocidade = linhaAtual.velocidade;
 
         inimigo.exibe();
         inimigo.move();
 
         if (inimigoVisivel) {
-            this.inimigoAtual++;
-            if (this.inimigoAtual > this.inimigos.length - 1) {
-                this.inimigoAtual = 0;
+            this.indice++;
+            inimigo.aparece();
+            if (this.indice > this.mapa.length - 1) {
+                this.indice = 0;
             }
-            inimigo.velocidade = parseInt(random(10, 30));
         }
 
         if (this.vida.vidas === 0) {

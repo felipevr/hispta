@@ -30,7 +30,6 @@ class Personagem extends Animacao {
             if(parseInt(cenas[cenaAtual].pontuacao.pontos*10) % 3 == 0) {
                 this.pisca = !this.pisca;
             }
-            console.log(parseInt(cenas[cenaAtual].pontuacao.pontos));
         } else {
             this.pisca = false;
         }
