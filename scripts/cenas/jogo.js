@@ -3,29 +3,12 @@ class Jogo extends Cena {
         super();
 
         this.indice = 0;
-        this.mapa = [
-            {
-                inimigo: 0,
-                velocidade: 10
-            },
-            {
-                inimigo: 1,
-                velocidade: 30
-            },
-            {
-                inimigo: 1,
-                velocidade: 15
-            },
-            {
-                inimigo: 2,
-                velocidade: 40
-            },
-        ]
+        this.mapa = fita.mapa;
 
         this.cenario = new Cenario(imgCenario, 5);
         this.pontuacao = new Pontuacao();
         this.personagem = new Personagem(imgPersonagem, 220, 270, 4, 4);
-        this.vida = new Vida(4, 3);
+        this.vida = new Vida(fita.configuracoes.vidaMaxima, fita.configuracoes.vidaInicial);
 
         this.inimigos = [];
     }

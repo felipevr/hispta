@@ -15,6 +15,8 @@ function preload() {
 
     fontTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
 
+    fita = loadJSON('fita/fita.json');
+
     somFundo = loadSound('sons/trilha_jogo.mp3');
     somPulo = loadSound('sons/somPulo.mp3');
 }
