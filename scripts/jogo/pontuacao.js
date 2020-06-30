@@ -4,8 +4,8 @@ class Pontuacao {
     }
 
     exibe() {
-        textAlign(RIGHT)
-        fill('#fff');
+        textAlign(RIGHT);
+        fill('#ff0');
         textSize(50);
         text(parseInt(this.pontos), width - 30, 50)
     }
