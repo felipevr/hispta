@@ -1,7 +1,7 @@
 class Personagem extends Animacao {
     constructor(imagem, larguraSprite, alturaSprite, colunas, linhas) {
 
-        super(imagem, 10, 150, 144, 64, larguraSprite, alturaSprite, colunas, linhas);
+        super(imagem, 10, 100, 144, 64, larguraSprite, alturaSprite, colunas, linhas);
 
         this.velocidadeDoPulo = 0;
         this.aceleracao = 0;

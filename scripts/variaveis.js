@@ -4,7 +4,7 @@ let cenas;
 
 let imgCenario;
 let imgPersonagem;
-let imgInimigo, imgTroll, imgVoador;
+let imgShips;
 let imgGameover;
 let imgSplash;
 let imgTelaInicial;

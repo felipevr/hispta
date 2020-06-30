@@ -3,9 +3,7 @@ function preload() {
 
     imgPersonagem = loadImage('imagens/personagem/nship.png');
 
-    imgInimigo = loadImage('imagens/inimigos/gotinha.png');
-    imgTroll = loadImage('imagens/inimigos/troll.png');
-    imgVoador = loadImage('imagens/inimigos/gotinha-voadora.png');
+    imgShips = loadImage('imagens/inimigos/shipsheetparts.png');
 
     imgGameover = loadImage('imagens/assets/game-over.png');
     imgVida = loadImage('imagens/assets/coracao.png');
