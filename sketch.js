@@ -10,15 +10,10 @@ function setup() {
         telaInicial: new TelaInicial()
     };
     cenas.jogo.setup();
+
+    botao._alteraCena();
 }
-/*
-function draw() {
-  cenario.exibe();
-  cenario.move();
-  personagem.anima();
-  personagem.exibe(height-150, 144, 64);
-}
-*/
+
 function keyPressed() {
     cenas[cenaAtual].keyPressed();
 }
