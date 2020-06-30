@@ -18,8 +18,15 @@ class Personagem extends Animacao {
     }
 
     pula() {
-        this.velocidadeDoPulo = this.alturaPulo;
+        this.velocidadeDoPulo += this.alturaPulo;
         this.aceleracao = this.gravidade;
+    }
+
+    desce() {
+        this.velocidadeDoPulo -= this.alturaPulo/2;
+        if(this.velocidadeDoPulo < 0) {
+            this.velocidadeDoPulo = 0;
+        }
     }
 
     aplicaGravidade() {

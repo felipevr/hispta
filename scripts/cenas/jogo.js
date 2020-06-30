@@ -30,8 +30,11 @@ class Jogo extends Cena {
     }
 
     keyPressed() {
-        if (key === ' ') {
-            this.personagem.pula(somPulo);
+        if (key === ' ' || key === 'ArrowUp') {
+            this.personagem.pula();
+        }
+        if (key === 'ArrowDown') {
+            this.personagem.desce();
         }
     }
 
