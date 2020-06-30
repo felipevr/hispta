@@ -26,7 +26,7 @@ class Jogo extends Cena {
         this.inimigos.push(nave3);
         this.inimigos.push(nave4);
 
-        //somFundo.loop();
+        somFundo.loop();
     }
 
     keyPressed() {
@@ -60,6 +60,10 @@ class Jogo extends Cena {
 
             inimigo2.exibe();
             inimigo2.move();
+
+            if (this.personagem.estaColidindo(inimigo2)) {
+                this.gameOver();
+            }
         }
 
         inimigo.exibe();

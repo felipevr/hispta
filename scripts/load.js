@@ -13,6 +13,6 @@ function preload() {
 
     fontTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
 
-    somFundo = loadSound('sons/trilha_jogo.mp3');
+    somFundo = loadSound('sons/techno.mp3');
     somPulo = loadSound('sons/somPulo.mp3');
 }
