@@ -4,6 +4,7 @@ let cenas;
 
 let imgCenario;
 let imgPersonagem;
+let imgPersonagemInverse;
 let imgShips;
 let imgGameover;
 let imgSplash;

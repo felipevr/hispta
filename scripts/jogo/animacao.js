@@ -1,14 +1,10 @@
 class Animacao {
 
-    constructor(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite) {
+    constructor(imagem, x, variacaoY, largura, altura) {
 
-        this.imagem = imagem;
-
-        this.colunasSprite = colunasSprite;
-        this.linhasSprite = linhasSprite;
-
-        this.larguraSprite = larguraSprite;
-        this.alturaSprite = alturaSprite;
+        this.imagens = [];
+        this.imagens[0] = imagem;
+        this.imagem = this.imagens[0];
 
         this.largura = largura;
         this.altura = altura;
@@ -20,13 +16,37 @@ class Animacao {
         this.frameX = 0;
         this.frameY = 0;
 
+        this.spriteDeslocamentoX = 0;
+        this.spriteDeslocamentoY = 0;
+
         this.precisao = 0.6;
     }
 
-    exibe() {
-        let a = this.frameX * this.larguraSprite;
-        let b = this.frameY * this.alturaSprite;
-        image(this.imagem, this.x, this.y, this.largura, this.altura, a, b, this.larguraSprite, this.alturaSprite);
+    defineSprites(larguraSprite, alturaSprite, colunasSprite, linhasSprite) {
+        this.colunasSprite = colunasSprite;
+        this.linhasSprite = linhasSprite;
+
+        this.larguraSprite = larguraSprite;
+        this.alturaSprite = alturaSprite;
+    }
+
+    defineImagem(imagem, indice) {
+        if(indice === undefined) {
+            indice = 0;
+        }
+
+        this.imagens[indice] = imagem;
+    }
+
+    exibe(imagem) {
+
+        if(imagem === undefined) {
+            imagem = this.imagem;
+        }
+
+        let a = this.frameX * this.larguraSprite + this.spriteDeslocamentoX;
+        let b = this.frameY * this.alturaSprite + this.spriteDeslocamentoY;
+        image(imagem, this.x, this.y, this.largura, this.altura, a, b, this.larguraSprite, this.alturaSprite);
 
         this.anima();
     }

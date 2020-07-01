@@ -1,7 +1,11 @@
 class Personagem extends Animacao {
-    constructor(imagem, larguraSprite, alturaSprite, colunas, linhas) {
+    constructor(imagem, imagem2) {
 
-        super(imagem, 10, 100, 144, 64, larguraSprite, alturaSprite, colunas, linhas);
+        super(imagem, 10, 100, 144, 64);
+
+        if(imagem2 !== undefined) {
+            super.defineImagem(imagem2, 1);
+        }
 
         this.velocidadeDoPulo = 0;
         this.aceleracao = 0;
@@ -9,6 +13,7 @@ class Personagem extends Animacao {
         this.alturaPulo = -5;
 
         this.invencivel = false;
+        this.atirando = false;
 
         this.precisao = 0.6;
 
@@ -22,6 +27,8 @@ class Personagem extends Animacao {
     exibe() {
         if (!this.pisca) {
             super.exibe();
+        } else {
+            super.exibe(this.imagens[1]);
         }
 
         if (this.invencivel) {
@@ -47,7 +54,12 @@ class Personagem extends Animacao {
     }
 
     atira() {
-        
+        this.atirando = true;
+        this.spriteDeslocamentoX = 864;
+        setTimeout(() => {
+            this.atirando = false;
+            this.spriteDeslocamentoX = 0;
+        }, 1000);
     }
 
     aplicaGravidade() {

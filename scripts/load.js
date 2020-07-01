@@ -2,6 +2,7 @@ function preload() {
     imgCenario = loadImage('imagens/cenario/nuvens.png');
 
     imgPersonagem = loadImage('imagens/personagem/nship.png');
+    imgPersonagemInverse = loadImage('imagens/personagem/nship_damaged.png');
 
     imgShips = loadImage('imagens/inimigos/shipsheetparts.png');
 

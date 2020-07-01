@@ -7,7 +7,8 @@ class Jogo extends Cena {
         this.cenario = new Cenario(imgCenario, 5);
         this.pontuacao;        
 
-        this.personagem = new Personagem(imgPersonagem, 288, 128, 3, 5);
+        this.personagem = new Personagem(imgPersonagem, imgPersonagemInverse);
+        this.personagem.defineSprites(288, 128, 3, 5);
 
         this.fimDoJogo = false;
         
@@ -25,7 +26,7 @@ class Jogo extends Cena {
 
         this.pontuacao = new Pontuacao();
         //this.vida = new Vida(fita.configuracoes.vidaMaxima, fita.configuracoes.vidaInicial);
-        this.vida = new Vida(4, 1);        
+        this.vida = new Vida(5, 5);
 
         somFundo.loop();
     }
@@ -56,7 +57,7 @@ class Jogo extends Cena {
         if (key === 'S' || key === 's' || key === 'ArrowDown') {
             this.personagem.desce();
         }
-        if (key === ' ') {
+        if (key === ' ' || key == 'ArrowRight') {
             this.personagem.atira();
         }
         if (this.fimDoJogo) {
