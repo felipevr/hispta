@@ -85,7 +85,8 @@ class Jogo extends Cena {
             inimigo2.move();
 
             if (this.personagem.estaColidindo(inimigo2)) {
-                this.gameOver();
+                this.vida.perdeVida();
+                this.personagem.ficaInvencivel();
             }
         }
 
