@@ -15,3 +15,5 @@ let fontTelaInicial;
 let somFundo, somPulo;
 
 let botao;
+
+let fita;

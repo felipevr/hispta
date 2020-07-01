@@ -2,59 +2,70 @@ class Jogo extends Cena {
     constructor() {
         super();
 
+        this.mapa = fita.mapa;
+
+        this.cenario = new Cenario(imgCenario, 5);
+        this.pontuacao;        
+
+        this.personagem = new Personagem(imgPersonagem, 288, 128, 3, 5);
+
+        this.fimDoJogo = false;
+        
+        this.inimigos = [];
+
+    }
+
+    start() {
+        this.fimDoJogo = false;
+
         this.indice1 = 0;
         this.indice2 = -1;
 
-        this.mapa = [
-            {
-                inimigo: 0,
-                velocidade: 10
-            },
-            {
-                inimigo: 1,
-                velocidade: 30
-            },
-            {
-                inimigo: 1,
-                velocidade: 15
-            },
-            {
-                inimigo: 2,
-                velocidade: 40
-            },
-        ]
+        this.indice = 0;
 
-        this.cenario = new Cenario(imgCenario, 5);
         this.pontuacao = new Pontuacao();
+        //this.vida = new Vida(fita.configuracoes.vidaMaxima, fita.configuracoes.vidaInicial);
+        this.vida = new Vida(4, 1);        
 
-        this.personagem = new Personagem(imgPersonagem, 288, 128, 3, 5);
-        this.vida = new Vida(4, 3);
-        
-        this.inimigos = [];
+        somFundo.loop();
     }
 
     setup() {
+        this.start();
 
         //(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite, velocidade, atraso)
         const nave1 = new Incoming(imgShips, width - 52,   30, 120, 140,  60,  70,   0,  14, 10, 30);
         const nave2 = new Incoming(imgShips, width + 250, 430, 100,  80,  50,  40, 155,  95, 8, 100);
         const nave3 = new Incoming(imgShips, width + 500, 230, 100,  80,  50,  40, 300, 140, 1, 50, 0.5);
         const nave4 = new Incoming(imgShips, width + 500, 230, 100, 100,  50,  50,   0, 185, 1, 50, 0.5);
+        
+        //(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite, velocidade, precisao)
+        //const inimigo2 = new Inimigo(imgInimigo, width - 52, 30, 52, 52, 104, 104, 4, 7, 10);
 
         this.inimigos.push(nave1);
         this.inimigos.push(nave2);
         this.inimigos.push(nave3);
         this.inimigos.push(nave4);
 
-        somFundo.loop();
     }
 
     keyPressed() {
-        if (key === ' ' || key === 'ArrowUp') {
+        if (key === 'W' || key === 'w' || key === 'ArrowUp') {
             this.personagem.pula();
         }
-        if (key === 'ArrowDown') {
+        if (key === 'S' || key === 's' || key === 'ArrowDown') {
             this.personagem.desce();
+        }
+        if (key === ' ') {
+            this.personagem.atira();
+        }
+        if (this.fimDoJogo) {
+            if (key === 'Escape' || key === 'Enter') {
+                this.start();
+                loop();
+            } else {
+                console.log(key);
+            }
         }
     }
 
@@ -71,6 +82,9 @@ class Jogo extends Cena {
 
         this.personagem.exibe();
         this.personagem.aplicaGravidade();
+
+        //const linhaAtual = this.mapa[this.indice];
+        //const inimigo = this.inimigos[linhaAtual.inimigo];
 
         let inimigo = this.inimigos[this.indice1];
         let inimigoVazou = inimigo.x < -inimigo.largura;
@@ -90,10 +104,18 @@ class Jogo extends Cena {
             }
         }
 
+        //inimigo.velocidade = linhaAtual.velocidade;
+
         inimigo.exibe();
         inimigo.move();
 
         if (inimigoVazou) {
+            /*
+            this.indice++;
+            inimigo.aparece();
+            if (this.indice > this.mapa.length - 1) {
+                this.indice = 0;
+            }*/
             this.indice1++;
             if (this.indice1 > this.inimigos.length - 1) {
                 this.indice1 = 1;
@@ -124,10 +146,12 @@ class Jogo extends Cena {
     gameOver() {
         image(imgGameover, width / 2 - 206, height / 2 - 39);
 
+        this.fimDoJogo = true;
+
         textAlign(CENTER);
         fill('#ff0');
         textSize(20);
-        text("PRESSIONE F5 PARA REINICIAR", width / 2, height - 150);
+        text("PRESSIONE ENTER OU ESCAPE PARA TENTAR NOVAMENTE", width / 2, height - 150);
         somFundo.stop();
         noLoop();
     }

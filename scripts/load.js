@@ -12,7 +12,10 @@ function preload() {
     imgTelaInicial = loadImage('imagens/assets/telaInicial.png');
 
     fontTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
+    
+    somPulo = loadSound('sons/somPulo.mp3');
 
     somFundo = loadSound('sons/techno.mp3');
-    somPulo = loadSound('sons/somPulo.mp3');
+    
+    fita = loadJSON('fita/fita.json');
 }
