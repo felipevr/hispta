@@ -7,10 +7,10 @@ class Personagem extends Animacao {
             super.defineImagem(imagem2, 1);
         }
 
-        this.velocidadeDoPulo = 0;
+        this.velocidadeMovimento = 0;
         this.aceleracao = 0;
-        this.gravidade = 0.1;
-        this.alturaPulo = -5;
+        this.inercia = 0.5;
+        this.alturaPulo = -3;
 
         this.invencivel = false;
         this.atirando = false;
@@ -40,17 +40,38 @@ class Personagem extends Animacao {
         }
     }
     
-    pula() {
-        this.velocidadeDoPulo += this.alturaPulo;
-        this.aceleracao = this.gravidade;
+    sobe(acelera) {
+        if(acelera === undefined) {
+            acelera = 1;
+        }
+
+        this.aceleracao = 0;
+        if(acelera == -1) {
+            this.aceleracao = this.inercia;
+        } else if (acelera > 1) {
+            this.velocidadeMovimento += this.alturaPulo;
+        } else {
+            this.velocidadeMovimento = this.alturaPulo;
+        }
     }
 
-    desce() {
-        this.velocidadeDoPulo -= this.alturaPulo/2;
-        if(this.velocidadeDoPulo < 0) {
-            this.velocidadeDoPulo = 0;
-
+    desce(acelera) {
+        if(acelera === undefined) {
+            acelera = 1;
         }
+
+        this.aceleracao = 0;
+        if(acelera == -1) {
+            this.aceleracao = -this.inercia;
+        } else if (acelera > 1) {
+            this.velocidadeMovimento -= this.alturaPulo;
+        } else {
+            this.velocidadeMovimento = -this.alturaPulo;
+        }
+
+        /*if(this.velocidadeDoPulo < 0) {
+            this.velocidadeDoPulo = 0;
+        }*/
     }
 
     atira() {
@@ -62,21 +83,37 @@ class Personagem extends Animacao {
         }, 1000);
     }
 
-    aplicaGravidade() {
-        this.y = this.y + this.velocidadeDoPulo;
-        this.velocidadeDoPulo = this.velocidadeDoPulo + this.aceleracao;
+    move() {
+        this.y = this.y + this.velocidadeMovimento;
+        if(!keyIsPressed) {
+            this.velocidadeMovimento = this.velocidadeMovimento + this.aceleracao;
+        }
+
+        if(this.velocidadeMovimento > -1 && this.velocidadeMovimento < 1) {
+            this.velocidadeMovimento = 0;
+            this.aceleracao = 0;
+        }
+
+        /*if(this.velocidadeMovimento !== 0) {
+            console.log([this.velocidadeMovimento, this.aceleracao]);
+        }*/
 
         if (this.y > this.yBase) {
             this.y = this.yBase;
-            this.velocidadeDoPulo = 0;
+            this.velocidadeMovimento = 0;
             this.aceleracao = 0;
-            this.pulos = 0;
         }
 
-        if (this.y <= 0) {
-            this.y = 10;
+        if (this.y <= 55) {
+            this.y = 55;
+            this.velocidadeMovimento = 0;
+            this.aceleracao = 0;
         }
 
+    }
+
+    estatistica() {
+        return [parseInt(this.velocidadeMovimento*100), this.aceleracao];
     }
 
     ficaInvencivel() {

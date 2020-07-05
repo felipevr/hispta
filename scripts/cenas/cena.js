@@ -11,7 +11,15 @@ class Cena {
 
     }
 
+    keyReleased() {
+
+    }
+
     setup() {
+        
+    }
+
+    resize() {
         
     }
 }

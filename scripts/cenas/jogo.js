@@ -52,31 +52,58 @@ class Jogo extends Cena {
     }
 
     keyPressed() {
-        if (key === 'P' || key === 'p' || key === 'Pause') {
+        if (keyIsDown(80) || keyIsDown(19)) {
             this.pausa();
         }
-        if (key === 'W' || key === 'w' || key === 'ArrowUp') {
-            this.personagem.pula();
+        else if (keyCode == 87 || keyCode == UP_ARROW) {
+            this.personagem.sobe(1);
         }
-        if (key === 'S' || key === 's' || key === 'ArrowDown') {
-            this.personagem.desce();
+        else if (keyCode == 83 || keyCode == DOWN_ARROW) {
+            this.personagem.desce(1);
         }
-        if (key === ' ' || key == 'ArrowRight') {
-            this.personagem.atira();
+        else if (keyCode == 32 || keyCode == RIGHT_ARROW) {
+            this.personagem.atira(1);
         }
         if (this.fimDoJogo) {
             if (key === 'Escape' || key === 'Enter') {
                 this.start();
                 loop();
-            } else {
-                console.log(key);
             }
         }
     }
 
-    draw() {
+    keyReleased() {
+        if (keyCode == 87 || keyCode == UP_ARROW) {
+            this.personagem.sobe(-1);
+        }
+        else if (keyCode == 83 || keyCode == DOWN_ARROW) {
+            this.personagem.desce(-1);
+        }
+        else if (keyCode == 32 || keyCode == RIGHT_ARROW) {
+            this.personagem.atira(-1);
+        }
+    }
 
-        console.log(width, height);
+    checkKeyDown() {
+        if (keyIsDown(80) || keyIsDown(19)) {
+            this.pausa();
+        }
+        else if (keyIsDown(87) || keyIsDown(UP_ARROW)) {
+            console.log([key, keyCode]);
+            this.personagem.sobe(2);
+        }
+        else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) {
+            this.personagem.desce(2);
+        }
+        else if (keyIsDown(32) || keyIsDown(RIGHT_ARROW)) {
+            this.personagem.atira();
+        }
+    }
+
+    draw() {
+        background(0, 100, 200);
+
+        //console.log(width, height);
 
         this.cenario.exibe();
 
@@ -85,7 +112,14 @@ class Jogo extends Cena {
 
         this.pontuacao.exibe();
 
+        this.exibeEstatisticas();
+
         this.personagem.exibe();
+
+        const contador = parseInt(getFrameRate()/5);
+        if(frameCount % contador == 0) {
+            this.checkKeyDown();
+        }
 
         if(this.pausado) {
             textAlign(CENTER);
@@ -98,7 +132,7 @@ class Jogo extends Cena {
         
         this.cenario.move();
         this.pontuacao.adicionarPontos();
-        this.personagem.aplicaGravidade();
+        this.personagem.move();
 
         //const linhaAtual = this.mapa[this.indice];
         //const inimigo = this.inimigos[linhaAtual.inimigo];
@@ -160,12 +194,18 @@ class Jogo extends Cena {
         }
     }
 
+    resize() {
+        this.cenario.resize();
+    }
+
     pausa() {
         this.pausado = !this.pausado;
         if(this.pausado) {
+            noLoop();
             somFundo.stop();
         } else {
             somFundo.play();
+            loop();
         }
     }
 
@@ -181,6 +221,15 @@ class Jogo extends Cena {
         somFundo.stop();
         noLoop();
     }
+
+    
+    exibeEstatisticas() {
+        textAlign(RIGHT);
+        fill('#ff0');
+        textSize(50);
+        text(this.personagem.estatistica(), width - 30, 100)
+    }
+
 
     testeColisao() {
         //background(255);

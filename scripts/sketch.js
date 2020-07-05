@@ -18,6 +18,10 @@ function keyPressed() {
     cenas[cenaAtual].keyPressed();
 }
 
+function keyReleased() {
+    cenas[cenaAtual].keyReleased();
+}
+
 function draw() {
     cenas[cenaAtual].draw();
 
@@ -25,4 +29,6 @@ function draw() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+
+    cenas[cenaAtual].resize();
   }
