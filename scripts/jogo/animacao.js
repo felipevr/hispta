@@ -10,8 +10,8 @@ class Animacao {
         this.altura = altura;
 
         this.x = x;
-        this.y = height - this.altura - variacaoY;
-        this.yBase = this.y;
+        this.variacaoY = variacaoY;
+        this.y = this.yBase = height - this.altura - variacaoY;
 
         this.frameX = 0;
         this.frameY = 0;
@@ -61,6 +61,11 @@ class Animacao {
             this.frameY = 0;
         }
 
+    }
+
+    resize(oldW, oldH) {
+        this.y = this.y * height/oldH;
+        this.yBase = height - this.altura - this.variacaoY;
     }
 
 }

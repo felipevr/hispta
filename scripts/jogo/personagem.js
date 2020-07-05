@@ -104,8 +104,8 @@ class Personagem extends Animacao {
             this.aceleracao = 0;
         }
 
-        if (this.y <= 55) {
-            this.y = 55;
+        if (this.y <= 65) {
+            this.y = 65;
             this.velocidadeMovimento = 0;
             this.aceleracao = 0;
         }

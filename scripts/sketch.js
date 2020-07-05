@@ -28,7 +28,9 @@ function draw() {
 }
 
 function windowResized() {
+    let oldW = width;
+    let oldH = height;
     resizeCanvas(windowWidth, windowHeight);
 
-    cenas[cenaAtual].resize();
+    cenas[cenaAtual].resize(oldW, oldH);
   }

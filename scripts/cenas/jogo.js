@@ -4,7 +4,9 @@ class Jogo extends Cena {
 
         this.mapa = fita.mapa;
 
-        this.cenario = new Cenario(imgCenario, 5);
+        this.velocidade = 5;
+
+        this.cenario = new Cenario(imgCenario, this.velocidade);
         this.pontuacao;        
 
         this.personagem = new Personagem(imgPersonagem, imgPersonagemInverse);
@@ -89,7 +91,6 @@ class Jogo extends Cena {
             this.pausa();
         }
         else if (keyIsDown(87) || keyIsDown(UP_ARROW)) {
-            console.log([key, keyCode]);
             this.personagem.sobe(2);
         }
         else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) {
@@ -112,22 +113,22 @@ class Jogo extends Cena {
 
         this.pontuacao.exibe();
 
-        this.exibeEstatisticas();
+        //this.exibeEstatisticas();
 
         this.personagem.exibe();
 
-        const contador = parseInt(getFrameRate()/5);
-        if(frameCount % contador == 0) {
-            this.checkKeyDown();
-        }
-
-        if(this.pausado) {
+        if(this.pausado || !focused) {
             textAlign(CENTER);
             fill('#ff0');
             textSize(50);
             text("PAUSA", width / 2, height /2 - 50);
 
             return;
+        }
+
+        const contador = parseInt(getFrameRate()/5);
+        if(frameCount % contador == 0) {
+            this.checkKeyDown();
         }
         
         this.cenario.move();
@@ -194,7 +195,9 @@ class Jogo extends Cena {
         }
     }
 
-    resize() {
+    resize(oldW, oldH) {
+        this.personagem.resize(oldW, oldH);
+        this.inimigos.forEach(e => e.resize(oldW, oldH) );
         this.cenario.resize();
     }
 

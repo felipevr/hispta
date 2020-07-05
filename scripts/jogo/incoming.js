@@ -1,10 +1,11 @@
-class Incoming {
+class Incoming extends Animacao {
     constructor(imagem, x, variacaoY, 
         largura, altura, 
         larguraSprite, alturaSprite, 
         colunasSprite, linhasSprite,
         velocidade, atraso, precisao) {
-        //super(imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, colunasSprite, linhasSprite);
+        super(imagem, x, variacaoY, largura, altura);
+        super.defineSprites(larguraSprite, alturaSprite, colunasSprite, linhasSprite);
 
         this.imagem = imagem;
 
