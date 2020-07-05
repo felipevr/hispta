@@ -14,8 +14,11 @@ class Jogo extends Cena {
 
         this.fimDoJogo = false;
         this.pausado = false;
+
+        this.exibirEstatistica = false;
         
         this.inimigos = [];
+        this.projeteis = [];
 
     }
 
@@ -64,7 +67,10 @@ class Jogo extends Cena {
             this.personagem.desce(1);
         }
         else if (keyCode == 32 || keyCode == RIGHT_ARROW) {
-            this.personagem.atira(1);
+            let p = this.personagem.atira(1);
+            if(p !== undefined) {
+                this.projeteis.push(p);
+            }
         }
         if (this.fimDoJogo) {
             if (key === 'Escape' || key === 'Enter') {
@@ -97,7 +103,7 @@ class Jogo extends Cena {
             this.personagem.desce(2);
         }
         else if (keyIsDown(32) || keyIsDown(RIGHT_ARROW)) {
-            this.personagem.atira();
+            this.personagem.atira(2);
         }
     }
 
@@ -113,7 +119,7 @@ class Jogo extends Cena {
 
         this.pontuacao.exibe();
 
-        //this.exibeEstatisticas();
+        this.exibeEstatisticas();
 
         this.personagem.exibe();
 
@@ -129,15 +135,39 @@ class Jogo extends Cena {
         const contador = parseInt(getFrameRate()/5);
         if(frameCount % contador == 0) {
             this.checkKeyDown();
-        }
+        }        
         
         this.cenario.move();
         this.pontuacao.adicionarPontos();
         this.personagem.move();
 
-        //const linhaAtual = this.mapa[this.indice];
-        //const inimigo = this.inimigos[linhaAtual.inimigo];
+        this.verificaProjeteis();
 
+        this.verificaInimigos();
+
+        if (this.vida.vidas === 0) {
+            this.gameOver();
+        }
+
+    }
+
+    verificaProjeteis() {
+        let remove = -1;
+        for(let i = 0; i < this.projeteis.length; i++) {
+            let e = this.projeteis[i];
+            e.exibe();
+            e.move();
+            if(e.x > width) {
+                remove = i;
+            }
+        }
+        if(remove !== -1) {
+            this.projeteis.splice(remove,1);
+        }
+    }
+
+    verificaInimigos() {
+        
         let inimigo = this.inimigos[this.indice1];
         let inimigoVazou = inimigo.x < -inimigo.largura;
         let inimigo2;
@@ -184,14 +214,9 @@ class Jogo extends Cena {
             this.inimigos[this.indice2].velocidade = parseInt(random(15, 30));
         }
 
-        if (this.vida.vidas === 0) {
-            this.gameOver();
-        }
-
         if (this.personagem.estaColidindo(inimigo)) {
             this.vida.perdeVida();
             this.personagem.ficaInvencivel();
-
         }
     }
 
@@ -227,10 +252,16 @@ class Jogo extends Cena {
 
     
     exibeEstatisticas() {
+        if(!this.exibirEstatistica) {
+            return;
+        }
+        
         textAlign(RIGHT);
         fill('#ff0');
         textSize(50);
-        text(this.personagem.estatistica(), width - 30, 100)
+        text(this.personagem.estatistica(), width - 30, 100);
+
+        text(this.projeteis.length, width - 30, 150);
     }
 
 
