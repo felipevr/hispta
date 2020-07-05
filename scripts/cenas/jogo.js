@@ -11,6 +11,7 @@ class Jogo extends Cena {
         this.personagem.defineSprites(288, 128, 3, 5);
 
         this.fimDoJogo = false;
+        this.pausado = false;
         
         this.inimigos = [];
 
@@ -51,6 +52,9 @@ class Jogo extends Cena {
     }
 
     keyPressed() {
+        if (key === 'P' || key === 'p' || key === 'Pause') {
+            this.pausa();
+        }
         if (key === 'W' || key === 'w' || key === 'ArrowUp') {
             this.personagem.pula();
         }
@@ -72,16 +76,28 @@ class Jogo extends Cena {
 
     draw() {
 
+        console.log(width, height);
+
         this.cenario.exibe();
-        this.cenario.move();
 
         this.vida.draw();
         //this.testeColisao();
 
         this.pontuacao.exibe();
-        this.pontuacao.adicionarPontos();
 
         this.personagem.exibe();
+
+        if(this.pausado) {
+            textAlign(CENTER);
+            fill('#ff0');
+            textSize(50);
+            text("PAUSA", width / 2, height /2 - 50);
+
+            return;
+        }
+        
+        this.cenario.move();
+        this.pontuacao.adicionarPontos();
         this.personagem.aplicaGravidade();
 
         //const linhaAtual = this.mapa[this.indice];
@@ -141,6 +157,15 @@ class Jogo extends Cena {
             this.vida.perdeVida();
             this.personagem.ficaInvencivel();
 
+        }
+    }
+
+    pausa() {
+        this.pausado = !this.pausado;
+        if(this.pausado) {
+            somFundo.stop();
+        } else {
+            somFundo.play();
         }
     }
 

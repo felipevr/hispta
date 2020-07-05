@@ -22,3 +22,7 @@ function draw() {
     cenas[cenaAtual].draw();
 
 }
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
